@@ -1,7 +1,19 @@
 <template>
   <h1>Sub app 1</h1>
-  <input type="text">
+  <input type="text" :value="useUser().username">
 </template>
+
+<script lang="ts">
+import { defineComponent } from 'vue'
+import { useUser } from './store/modules/user'
+
+export default defineComponent({
+  setup () {
+    return { useUser }
+  }
+})
+</script>
+
 
 <style scoped>
 header {

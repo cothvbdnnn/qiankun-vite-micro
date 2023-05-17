@@ -5,26 +5,21 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, onUnmounted } from "vue";
-import { loadMicroApp } from "qiankun";
+import { defineComponent } from "vue";
+import { useMicroApp } from "../../../layout/hooks/useMicroApp";
+import { useUserStore } from "@/store/modules/user";
 
 export default defineComponent({
   name: "SubApp2",
   setup() {
-    const microApp = ref(null);
-    onMounted(() => {
-      microApp.value = loadMicroApp({
-        name: "SubApp2",
-        entry: "//localhost:5174/",
-        container: "#subapp"
-      });
-      console.log(microApp);
+    useMicroApp({
+      name: "SubApp2",
+      entry: "//localhost:5174/",
+      container: "#subapp",
+      props: {
+        userState: useUserStore().$state
+      }
     });
-
-    onUnmounted(() => {
-      microApp.value.unmount();
-    });
-
     return {};
   }
 });
